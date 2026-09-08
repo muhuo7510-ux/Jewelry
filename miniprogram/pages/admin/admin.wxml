@@ -1,0 +1,58 @@
+<view class="page" wx:if="{{!authed}}">
+  <view class="box">
+    <view class="title">输入管理口令</view>
+    <view class="hint">默认口令 8888，仅保存在本机。成本价不会出现在客户页。</view>
+    <input class="input" password placeholder="口令" value="{{pin}}" bindinput="onPin" />
+    <button class="btn" bindtap="doLogin">进入</button>
+  </view>
+</view>
+
+<view class="page" wx:else>
+  <view class="stats">
+    <view class="stat">在架<text>{{listedCount}}</text></view>
+    <view class="stat">空闲<text>{{idleCount}}</text></view>
+    <view class="stat">租赁中<text>{{rentedCount}}</text></view>
+  </view>
+  <view class="toolbar">
+    <button class="btn sm" bindtap="onAdd">新增</button>
+    <button class="btn ghost sm" bindtap="onReset">恢复示例</button>
+    <button class="btn ghost sm" bindtap="doLogout">退出</button>
+  </view>
+  <view class="item" wx:for="{{products}}" wx:key="id">
+    <image class="thumb" src="{{item.image}}" mode="aspectFill" />
+    <view class="info">
+      <view class="name">{{item.name}}</view>
+      <view class="sub">{{item.typeLabel}} · {{item.listed ? '上架' : '下架'}}</view>
+      <view class="sub">成本 ¥{{item.costPrice}} / 租 ¥{{item.rentPrice}} / 售 ¥{{item.salePrice}}</view>
+      <picker data-id="{{item.id}}" range="{{statusOptions}}" value="{{item.statusIndex}}" bindchange="onStatus">
+        <view class="pick">状态：{{item.statusLabel}}</view>
+      </picker>
+      <button class="btn ghost sm" data-id="{{item.id}}" bindtap="onEdit">编辑</button>
+    </view>
+  </view>
+
+  <view class="mask" wx:if="{{editing}}" bindtap="closeEdit">
+    <view class="sheet" catchtap="noop">
+      <view class="title">{{form.name || '编辑商品'}}</view>
+      <input class="input" placeholder="名称" value="{{form.name}}" data-key="name" bindinput="onForm" />
+      <picker range="{{typeLabels}}" value="{{typeIndex}}" bindchange="onType">
+        <view class="pick">类型：{{form.typeLabel}}</view>
+      </picker>
+      <input class="input" type="number" placeholder="成本价" value="{{form.costPrice}}" data-key="costPrice" bindinput="onFormNum" />
+      <input class="input" type="number" placeholder="租赁价" value="{{form.rentPrice}}" data-key="rentPrice" bindinput="onFormNum" />
+      <input class="input" type="number" placeholder="售卖价" value="{{form.salePrice}}" data-key="salePrice" bindinput="onFormNum" />
+      <picker range="{{unitLabels}}" value="{{unitIndex}}" bindchange="onUnit">
+        <view class="pick">单位：{{form.unitLabel}}</view>
+      </picker>
+      <input class="input" type="number" placeholder="押金" value="{{form.deposit}}" data-key="deposit" bindinput="onFormNum" />
+      <switch checked="{{form.listed}}" bindchange="onListed" color="#c8b48a" /> 上架
+      <textarea class="area" placeholder="简介" value="{{form.description}}" data-key="description" bindinput="onForm" />
+      <button class="btn ghost sm" bindtap="chooseImage">更换图片</button>
+      <view class="toolbar">
+        <button class="btn sm" bindtap="saveEdit">保存</button>
+        <button class="btn danger sm" bindtap="deleteEdit">删除</button>
+        <button class="btn ghost sm" bindtap="closeEdit">取消</button>
+      </view>
+    </view>
+  </view>
+</view>

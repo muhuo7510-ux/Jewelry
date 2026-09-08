@@ -1,0 +1,18 @@
+<view class="page" wx:if="{{product}}">
+  <image class="hero" src="{{product.image}}" mode="aspectFill" />
+  <view class="body">
+    <view class="kicker">{{typeLabel}}</view>
+    <view class="title">{{product.name}}</view>
+    <view class="desc">{{product.description}}</view>
+    <view class="row">
+      <text>租赁价格</text>
+      <text class="price">¥{{product.rentPrice}} / {{unitLabel}}</text>
+    </view>
+    <view class="row">
+      <text>产品状态</text>
+      <text class="{{product.status === 'idle' ? 'idle' : 'rented'}}">{{statusLabel}}</text>
+    </view>
+    <view class="hint">买断价格面议，请直接咨询商户。</view>
+    <button class="btn" bindtap="consult">复制咨询文案</button>
+  </view>
+</view>

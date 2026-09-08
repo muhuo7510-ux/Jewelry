@@ -1,22 +1,17 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/logs/logs"
+    "pages/detail/detail",
+    "pages/admin/admin"
   ],
   "window": {
-    "navigationBarTextStyle": "black",
-    "navigationStyle": "custom"
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "沐金珠宝",
+    "navigationBarBackgroundColor": "#0C0B0A",
+    "backgroundColor": "#0C0B0A",
+    "backgroundTextStyle": "light"
   },
   "style": "v2",
-  "rendererOptions": {
-    "skyline": {
-      "defaultDisplayBlock": true,
-      "disableABTest": true,
-      "sdkVersionBegin": "3.0.0",
-      "sdkVersionEnd": "15.255.255"
-    }
-  },
-  "componentFramework": "glass-easel",
   "sitemapLocation": "sitemap.json",
   "lazyCodeLoading": "requiredComponents"
 }

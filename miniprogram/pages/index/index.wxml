@@ -1,28 +1,39 @@
-<!--index.wxml-->
-<navigation-bar title="Weixin" back="{{false}}" color="black" background="#FFF"></navigation-bar>
-<scroll-view class="scrollarea" scroll-y type="list">
-  <view class="container">
-    <view class="userinfo">
-      <block wx:if="{{canIUseNicknameComp && !hasUserInfo}}">
-        <button class="avatar-wrapper" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
-          <image class="avatar" src="{{userInfo.avatarUrl}}"></image>
-        </button>
-        <view class="nickname-wrapper">
-          <text class="nickname-label">昵称</text>
-          <input type="nickname" class="nickname-input" placeholder="请输入昵称" bind:change="onInputChange" />
-        </view>
-      </block>
-      <block wx:elif="{{!hasUserInfo}}">
-        <button wx:if="{{canIUseGetUserProfile}}" bindtap="getUserProfile"> 获取头像昵称 </button>
-        <view wx:else> 请使用2.10.4及以上版本基础库 </view>
-      </block>
-      <block wx:else>
-        <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-        <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-      </block>
+<view class="page">
+  <view class="top">
+    <view>
+      <view class="kicker">ATELIER</view>
+      <view class="title">沐金珠宝</view>
     </view>
-    <view class="usermotto">
-      <text class="user-motto">{{motto}}</text>
+    <navigator url="/pages/admin/admin" class="link">商户入口</navigator>
+  </view>
+  <view class="hint">项链 · 戒指 · 耳环，可整套或单件租赁 / 买断。仅公开租金与档期。</view>
+  <scroll-view class="chips" scroll-x enable-flex>
+    <view
+      wx:for="{{tabs}}"
+      wx:key="key"
+      class="chip {{filter === item.key ? 'active' : ''}}"
+      data-key="{{item.key}}"
+      bindtap="onFilter"
+    >{{item.label}}</view>
+  </scroll-view>
+  <view class="grid">
+    <view
+      wx:for="{{list}}"
+      wx:key="id"
+      class="card"
+      data-id="{{item.id}}"
+      bindtap="openDetail"
+    >
+      <image class="thumb" src="{{item.image}}" mode="aspectFill" />
+      <view class="badge">{{item.typeLabel}} · {{item.statusLabel}}</view>
+      <view class="card-body">
+        <view class="name">{{item.name}}</view>
+        <view class="meta">
+          <text class="price">¥{{item.rentPrice}} / {{item.unitLabel}}</text>
+          <text class="{{item.status === 'idle' ? 'idle' : 'rented'}}">{{item.statusLabel}}</text>
+        </view>
+      </view>
     </view>
   </view>
-</scroll-view>
+  <view wx:if="{{!list.length}}" class="hint">该分类暂无上架商品。</view>
+</view>
