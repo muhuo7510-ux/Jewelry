@@ -14,9 +14,9 @@
     <view class="stat">租赁中<text>{{rentedCount}}</text></view>
   </view>
   <view class="toolbar">
-    <button class="btn sm" bindtap="onAdd">新增</button>
-    <button class="btn ghost sm" bindtap="onReset">恢复示例</button>
-    <button class="btn ghost sm" bindtap="doLogout">退出</button>
+    <button class="btn" bindtap="onAdd">新增</button>
+    <button class="btn ghost" bindtap="onReset">恢复</button>
+    <button class="btn mute" bindtap="doLogout">退出</button>
   </view>
   <view class="item" wx:for="{{products}}" wx:key="id">
     <image class="thumb" src="{{item.image}}" mode="aspectFill" />
@@ -24,10 +24,12 @@
       <view class="name">{{item.name}}</view>
       <view class="sub">{{item.typeLabel}} · {{item.listed ? '上架' : '下架'}}</view>
       <view class="sub">成本 ¥{{item.costPrice}} / 租 ¥{{item.rentPrice}} / 售 ¥{{item.salePrice}}</view>
-      <picker data-id="{{item.id}}" range="{{statusOptions}}" value="{{item.statusIndex}}" bindchange="onStatus">
-        <view class="pick">状态：{{item.statusLabel}}</view>
-      </picker>
-      <button class="btn ghost sm" data-id="{{item.id}}" bindtap="onEdit">编辑</button>
+      <view class="item-actions">
+        <picker data-id="{{item.id}}" range="{{statusOptions}}" value="{{item.statusIndex}}" bindchange="onStatus">
+          <view class="pick">状态：{{item.statusLabel}}</view>
+        </picker>
+        <view class="edit-link" data-id="{{item.id}}" bindtap="onEdit">编辑</view>
+      </view>
     </view>
   </view>
 
@@ -45,13 +47,16 @@
         <view class="pick">单位：{{form.unitLabel}}</view>
       </picker>
       <input class="input" type="number" placeholder="押金" value="{{form.deposit}}" data-key="deposit" bindinput="onFormNum" />
-      <switch checked="{{form.listed}}" bindchange="onListed" color="#c8b48a" /> 上架
+      <view class="listed-row">
+        <text>上架展示</text>
+        <switch checked="{{form.listed}}" bindchange="onListed" color="#c8b48a" />
+      </view>
       <textarea class="area" placeholder="简介" value="{{form.description}}" data-key="description" bindinput="onForm" />
-      <button class="btn ghost sm" bindtap="chooseImage">更换图片</button>
+      <button class="btn ghost img-btn" bindtap="chooseImage">更换图片</button>
       <view class="toolbar">
-        <button class="btn sm" bindtap="saveEdit">保存</button>
-        <button class="btn danger sm" bindtap="deleteEdit">删除</button>
-        <button class="btn ghost sm" bindtap="closeEdit">取消</button>
+        <button class="btn" bindtap="saveEdit">保存</button>
+        <button class="btn danger" bindtap="deleteEdit">删除</button>
+        <button class="btn mute" bindtap="closeEdit">取消</button>
       </view>
     </view>
   </view>

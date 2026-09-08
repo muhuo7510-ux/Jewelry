@@ -11,16 +11,45 @@
   margin-bottom: 16rpx;
 }
 .area { height: 140rpx; }
+
+button {
+  margin: 0;
+  padding: 0;
+}
+button::after {
+  border: none;
+}
+
 .btn {
   background: #c8b48a;
   color: #1a140d;
-  border-radius: 12rpx;
+  border-radius: 16rpx;
   font-size: 28rpx;
+  font-weight: 500;
+  line-height: 80rpx;
+  height: 80rpx;
 }
-.btn.ghost { background: transparent; color: #c8b48a; border: 1rpx solid rgba(200,180,138,0.4); }
-.btn.danger { background: transparent; color: #c46a5a; border: 1rpx solid rgba(196,106,90,0.4); }
-.btn.sm { display: inline-block; padding: 0 24rpx; line-height: 64rpx; font-size: 24rpx; margin-right: 12rpx; margin-top: 12rpx; }
-.stats { display: flex; gap: 16rpx; margin-bottom: 20rpx; }
+.btn.ghost {
+  background: rgba(200, 180, 138, 0.08);
+  color: #c8b48a;
+  border: 1rpx solid rgba(200, 180, 138, 0.35);
+}
+.btn.mute {
+  background: transparent;
+  color: #9b9084;
+  border: 1rpx solid rgba(244, 239, 232, 0.16);
+}
+.btn.danger {
+  background: transparent;
+  color: #c46a5a;
+  border: 1rpx solid rgba(196, 106, 90, 0.4);
+}
+
+.stats {
+  display: flex;
+  gap: 16rpx;
+  margin-bottom: 24rpx;
+}
 .stat {
   flex: 1;
   border: 1rpx solid rgba(244,239,232,0.14);
@@ -30,7 +59,21 @@
   font-size: 24rpx;
 }
 .stat text { display: block; color: #f4efe8; font-size: 36rpx; margin-top: 8rpx; }
-.toolbar { margin-bottom: 16rpx; }
+
+.toolbar {
+  display: flex;
+  align-items: stretch;
+  gap: 16rpx;
+  margin-bottom: 28rpx;
+}
+.toolbar .btn {
+  flex: 1;
+  width: 0;
+  height: 72rpx;
+  line-height: 70rpx;
+  font-size: 26rpx;
+}
+
 .item {
   display: flex;
   gap: 20rpx;
@@ -41,10 +84,34 @@
   margin-bottom: 16rpx;
 }
 .thumb { width: 144rpx; height: 180rpx; border-radius: 12rpx; background: #1c1814; flex-shrink: 0; }
-.info { flex: 1; }
+.info { flex: 1; min-width: 0; }
 .name { font-size: 30rpx; }
 .sub { color: #9b9084; font-size: 22rpx; margin-top: 6rpx; }
-.pick { color: #c8b48a; font-size: 24rpx; margin-top: 10rpx; }
+.pick { color: #c8b48a; font-size: 24rpx; }
+.item-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 12rpx;
+}
+.edit-link {
+  color: #c8b48a;
+  font-size: 24rpx;
+  padding: 8rpx 4rpx 8rpx 24rpx;
+}
+
+.listed-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #9b9084;
+  font-size: 26rpx;
+  margin-bottom: 16rpx;
+}
+.img-btn {
+  margin-bottom: 20rpx;
+}
+
 .mask {
   position: fixed; inset: 0; background: rgba(0,0,0,0.6);
   display: flex; align-items: flex-end; z-index: 20;
