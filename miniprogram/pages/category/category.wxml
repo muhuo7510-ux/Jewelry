@@ -6,7 +6,7 @@
     </view>
     <view class="list">
       <view class="card" wx:for="{{list}}" wx:key="id" data-id="{{item.id}}" bindtap="open">
-        <image src="{{item.image}}" mode="aspectFill" />
+        <image src="{{item.image}}" mode="aspectFill" data-id="{{item.id}}" bindtap="open" />
         <view class="info">
           <view class="name">{{item.name}}</view>
           <view class="price">¥{{item.rentPrice}}/天 · {{item.statusLabel}}</view>

@@ -1,26 +1,22 @@
-:host {
-  display: block;
-  height: 0;
-  overflow: visible;
-}
 .bar {
   position: fixed;
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 20;
+  z-index: 99;
   display: flex;
-  height: 100rpx;
+  height: 110rpx;
   padding-bottom: env(safe-area-inset-bottom);
   background: #0c0b0a;
   border-top: 1rpx solid rgba(244, 239, 232, 0.14);
 }
 .item {
   flex: 1;
+  height: 110rpx;
+  line-height: 110rpx;
   text-align: center;
-  line-height: 100rpx;
   color: #6f675e;
-  font-size: 26rpx;
+  font-size: 28rpx;
 }
 .item.on {
   color: #c8b48a;

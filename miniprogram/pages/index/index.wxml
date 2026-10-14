@@ -3,12 +3,12 @@
   <view class="title">沐金租饰</view>
   <view class="hint">选天数，信用免押。只展示日租和档期。</view>
   <input class="search" placeholder="搜项链、戒指、套装" value="{{query}}" bindinput="onQuery" />
-  <scroll-view class="chips" scroll-x>
+  <view class="chips">
     <view wx:for="{{tabs}}" wx:key="key" class="chip {{cat === item.key ? 'on' : ''}}" data-key="{{item.key}}" bindtap="onCat">{{item.label}}</view>
-  </scroll-view>
+  </view>
   <view class="grid">
-    <view class="card" wx:for="{{list}}" wx:key="id" data-id="{{item.id}}" bindtap="open">
-      <image class="thumb" src="{{item.image}}" mode="aspectFill" />
+    <view class="card" wx:for="{{list}}" wx:key="id" data-id="{{item.id}}" hover-class="card-on" bindtap="open">
+      <image class="thumb" src="{{item.image}}" mode="aspectFill" data-id="{{item.id}}" bindtap="open" />
       <view class="name">{{item.name}}</view>
       <view class="meta"><text class="price">¥{{item.rentPrice}}/天</text><text class="{{item.status}}">{{item.statusLabel}}</text></view>
     </view>
