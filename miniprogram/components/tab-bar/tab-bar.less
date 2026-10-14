@@ -1,7 +1,27 @@
-.bar {
-  position: fixed; left: 0; right: 0; bottom: 0; z-index: 10;
-  display: flex; height: 100rpx; padding-bottom: env(safe-area-inset-bottom);
-  background: #0c0b0a; border-top: 1rpx solid rgba(244,239,232,0.14);
+:host {
+  display: block;
+  height: 0;
+  overflow: visible;
 }
-.item { flex: 1; text-align: center; line-height: 100rpx; color: #6f675e; font-size: 26rpx; }
-.item.on { color: #c8b48a; }
+.bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 20;
+  display: flex;
+  height: 100rpx;
+  padding-bottom: env(safe-area-inset-bottom);
+  background: #0c0b0a;
+  border-top: 1rpx solid rgba(244, 239, 232, 0.14);
+}
+.item {
+  flex: 1;
+  text-align: center;
+  line-height: 100rpx;
+  color: #6f675e;
+  font-size: 26rpx;
+}
+.item.on {
+  color: #c8b48a;
+}
