@@ -1,0 +1,6 @@
+<view class="bar">
+  <view class="item {{current === 'home' ? 'on' : ''}}" data-url="/pages/index/index" bindtap="go">首页</view>
+  <view class="item {{current === 'category' ? 'on' : ''}}" data-url="/pages/category/category" bindtap="go">分类</view>
+  <view class="item {{current === 'orders' ? 'on' : ''}}" data-url="/pages/orders/orders" bindtap="go">订单</view>
+  <view class="item {{current === 'mine' ? 'on' : ''}}" data-url="/pages/mine/mine" bindtap="go">我的</view>
+</view>

@@ -1,12 +1,15 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/category/category",
+    "pages/orders/orders",
+    "pages/mine/mine",
     "pages/detail/detail",
     "pages/admin/admin"
   ],
   "window": {
     "navigationBarTextStyle": "white",
-    "navigationBarTitleText": "沐金珠宝",
+    "navigationBarTitleText": "沐金租饰",
     "navigationBarBackgroundColor": "#0C0B0A",
     "backgroundColor": "#0C0B0A",
     "backgroundTextStyle": "light"

@@ -1,39 +1,18 @@
 <view class="page">
-  <view class="top">
-    <view>
-      <view class="kicker">ATELIER</view>
-      <view class="title">沐金珠宝</view>
-    </view>
-    <navigator url="/pages/admin/admin" class="link">商户入口</navigator>
-  </view>
-  <view class="hint">项链 · 戒指 · 耳环，可整套或单件租赁 / 买断。仅公开租金与档期。</view>
-  <scroll-view class="chips" scroll-x enable-flex>
-    <view
-      wx:for="{{tabs}}"
-      wx:key="key"
-      class="chip {{filter === item.key ? 'active' : ''}}"
-      data-key="{{item.key}}"
-      bindtap="onFilter"
-    >{{item.label}}</view>
+  <view class="kicker">MUJIN RENT</view>
+  <view class="title">沐金租饰</view>
+  <view class="hint">选天数，信用免押。只展示日租和档期。</view>
+  <input class="search" placeholder="搜项链、戒指、套装" value="{{query}}" bindinput="onQuery" />
+  <scroll-view class="chips" scroll-x>
+    <view wx:for="{{tabs}}" wx:key="key" class="chip {{cat === item.key ? 'on' : ''}}" data-key="{{item.key}}" bindtap="onCat">{{item.label}}</view>
   </scroll-view>
   <view class="grid">
-    <view
-      wx:for="{{list}}"
-      wx:key="id"
-      class="card"
-      data-id="{{item.id}}"
-      bindtap="openDetail"
-    >
+    <view class="card" wx:for="{{list}}" wx:key="id" data-id="{{item.id}}" bindtap="open">
       <image class="thumb" src="{{item.image}}" mode="aspectFill" />
-      <view class="badge">{{item.typeLabel}} · {{item.statusLabel}}</view>
-      <view class="card-body">
-        <view class="name">{{item.name}}</view>
-        <view class="meta">
-          <text class="price">¥{{item.rentPrice}} / {{item.unitLabel}}</text>
-          <text class="{{item.status === 'idle' ? 'idle' : 'rented'}}">{{item.statusLabel}}</text>
-        </view>
-      </view>
+      <view class="name">{{item.name}}</view>
+      <view class="meta"><text class="price">¥{{item.rentPrice}}/天</text><text class="{{item.status}}">{{item.statusLabel}}</text></view>
     </view>
   </view>
-  <view wx:if="{{!list.length}}" class="hint">该分类暂无上架商品。</view>
+  <view wx:if="{{!list.length}}" class="hint">没有符合的饰品。</view>
 </view>
+<tab-bar current="home" />

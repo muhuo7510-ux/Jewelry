@@ -1,0 +1,14 @@
+<view class="page">
+  <view class="title">订单</view>
+  <view wx:if="{{!orders.length}}" class="hint">还没有租赁订单。</view>
+  <view class="item" wx:for="{{orders}}" wx:key="id">
+    <image src="{{item.image}}" mode="aspectFill" />
+    <view class="info">
+      <view class="name">{{item.name}}</view>
+      <view class="sub">{{item.days}} 天 · 日租 ¥{{item.daily}} · 合计 ¥{{item.total}}</view>
+      <view class="sub">{{item.state === 'renting' ? '租赁中 · 免押' : '已归还'}}</view>
+      <button wx:if="{{item.state === 'renting'}}" class="btn" data-id="{{item.id}}" bindtap="back">确认归还</button>
+    </view>
+  </view>
+</view>
+<tab-bar current="orders" />

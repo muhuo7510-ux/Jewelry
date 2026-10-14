@@ -1,0 +1,19 @@
+<view class="page">
+  <view class="title">分类</view>
+  <view class="row">
+    <view class="rail">
+      <view wx:for="{{tabs}}" wx:key="key" class="rail-item {{cat === item.key ? 'on' : ''}}" data-key="{{item.key}}" bindtap="onCat">{{item.label}}</view>
+    </view>
+    <view class="list">
+      <view class="card" wx:for="{{list}}" wx:key="id" data-id="{{item.id}}" bindtap="open">
+        <image src="{{item.image}}" mode="aspectFill" />
+        <view class="info">
+          <view class="name">{{item.name}}</view>
+          <view class="price">¥{{item.rentPrice}}/天 · {{item.statusLabel}}</view>
+        </view>
+      </view>
+      <view wx:if="{{!list.length}}" class="empty">没有符合的饰品。</view>
+    </view>
+  </view>
+</view>
+<tab-bar current="category" />

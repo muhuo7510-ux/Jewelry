@@ -1,18 +1,14 @@
 <view class="page" wx:if="{{product}}">
   <image class="hero" src="{{product.image}}" mode="aspectFill" />
   <view class="body">
-    <view class="kicker">{{typeLabel}}</view>
+    <view class="kicker">{{typeLabel}} · 信用免押</view>
     <view class="title">{{product.name}}</view>
     <view class="desc">{{product.description}}</view>
-    <view class="row">
-      <text>租赁价格</text>
-      <text class="price">¥{{product.rentPrice}} / {{unitLabel}}</text>
+    <view class="row"><text class="price">¥{{product.rentPrice}} / 天</text><text class="{{product.status}}">{{statusLabel}}</text></view>
+    <view class="days">
+      <view wx:for="{{dayOptions}}" wx:key="*this" class="day {{days === item ? 'on' : ''}}" data-d="{{item}}" bindtap="pick">{{item}} 天</view>
     </view>
-    <view class="row">
-      <text>产品状态</text>
-      <text class="{{product.status === 'idle' ? 'idle' : 'rented'}}">{{statusLabel}}</text>
-    </view>
-    <view class="hint">买断价格面议，请直接咨询商户。</view>
-    <button class="btn" bindtap="consult">复制咨询文案</button>
+    <view class="hint">合计 ¥{{total}} · 押金 ¥0</view>
+    <button class="btn" disabled="{{product.status !== 'idle'}}" bindtap="rent">{{product.status === 'idle' ? '免押租' : '租赁中，暂不可租'}}</button>
   </view>
 </view>

@@ -1,0 +1,10 @@
+<view class="page">
+  <view class="title">我的</view>
+  <view class="stats">
+    <view class="stat">在租<text>{{renting}}</text></view>
+    <view class="stat">可租<text>{{idle}}</text></view>
+  </view>
+  <navigator url="/pages/admin/admin" class="go">商户后台</navigator>
+  <view class="hint">成本价和改价在商户后台，口令 8888。订单存在这台设备上。</view>
+</view>
+<tab-bar current="mine" />

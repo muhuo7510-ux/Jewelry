@@ -227,3 +227,70 @@ export function blankProduct(): Product {
     note: "",
   }
 }
+
+export interface RentOrder {
+  id: string
+  productId: string
+  name: string
+  image: string
+  days: number
+  daily: number
+  total: number
+  createdAt: number
+  state: "renting" | "done"
+}
+
+const ORDER_KEY = "jewelry.orders.v1"
+
+export function loadOrders(): RentOrder[] {
+  try {
+    const raw = wx.getStorageSync(ORDER_KEY)
+    if (!raw) return []
+    const parsed = typeof raw === "string" ? JSON.parse(raw) : raw
+    return Array.isArray(parsed) ? (parsed as RentOrder[]) : []
+  } catch {
+    return []
+  }
+}
+
+function saveOrders(list: RentOrder[]) {
+  wx.setStorageSync(ORDER_KEY, list)
+}
+
+export function rentProduct(productId: string, days: number) {
+  const list = loadProducts()
+  const product = list.find((p) => p.id === productId)
+  if (!product || product.status !== "idle" || !product.listed) return false
+  product.status = "rented"
+  saveProducts(list)
+  const orders = loadOrders()
+  orders.unshift({
+    id: `o-${Date.now()}`,
+    productId,
+    name: product.name,
+    image: product.image,
+    days,
+    daily: product.rentPrice,
+    total: product.rentPrice * days,
+    createdAt: Date.now(),
+    state: "renting",
+  })
+  saveOrders(orders)
+  return true
+}
+
+export function giveBack(orderId: string) {
+  const orders = loadOrders()
+  const order = orders.find((o) => o.id === orderId)
+  if (!order || order.state !== "renting") return
+  order.state = "done"
+  saveOrders(orders)
+  const stillOut = orders.some((o) => o.productId === order.productId && o.state === "renting")
+  if (stillOut) return
+  const list = loadProducts()
+  const product = list.find((p) => p.id === order.productId)
+  if (product) {
+    product.status = "idle"
+    saveProducts(list)
+  }
+}

@@ -1,4 +1,3 @@
 {
-  "navigationBarTitleText": "沐金珠宝",
-  "usingComponents": {}
+  "usingComponents": { "tab-bar": "/components/tab-bar/tab-bar" }
 }

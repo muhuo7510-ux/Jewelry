@@ -1,21 +1,20 @@
-import {
-  TYPE_LABEL,
-  STATUS_LABEL,
-  UNIT_LABEL,
-  findProduct,
-  loadProducts,
-} from "../../utils/products"
-
+import { TYPE_LABEL, STATUS_LABEL, findProduct, loadProducts, rentProduct } from "../../utils/products"
 Page({
   data: {
     product: null as any,
     typeLabel: "",
     statusLabel: "",
-    unitLabel: "",
+    days: 3,
+    dayOptions: [3, 7, 15],
+    total: 0,
   },
   onLoad(query: Record<string, string | undefined>) {
-    const id = query.id || ""
-    const product = findProduct(loadProducts(), id)
+    this.id = query.id || ""
+    this.load()
+  },
+  id: "",
+  load() {
+    const product = findProduct(loadProducts(), this.id)
     if (!product) {
       wx.showToast({ title: "商品不存在", icon: "none" })
       return
@@ -24,16 +23,21 @@ Page({
       product,
       typeLabel: TYPE_LABEL[product.type],
       statusLabel: STATUS_LABEL[product.status],
-      unitLabel: UNIT_LABEL[product.rentUnit],
+      total: product.rentPrice * this.data.days,
     })
   },
-  consult() {
-    const p = this.data.product
-    if (!p) return
-    const text = `你好，想咨询「${p.name}」租赁，租金 ¥${p.rentPrice}/${this.data.unitLabel}，当前${this.data.statusLabel}`
-    wx.setClipboardData({
-      data: text,
-      success: () => wx.showToast({ title: "已复制咨询文案", icon: "none" }),
-    })
+  pick(e: WechatMiniprogram.TouchEvent) {
+    const days = Number(e.currentTarget.dataset.d)
+    const product = this.data.product
+    this.setData({ days, total: product ? product.rentPrice * days : 0 })
+  },
+  rent() {
+    if (!rentProduct(this.id, this.data.days)) {
+      wx.showToast({ title: "这件正在出租", icon: "none" })
+      this.load()
+      return
+    }
+    wx.showToast({ title: "已下单", icon: "none" })
+    wx.redirectTo({ url: "/pages/orders/orders" })
   },
 })
